@@ -1,7 +1,5 @@
 # Übung – Grundelemente der Migration  
 
----
-
 ## 1. Zwei Gründe für eine Software-Migration
 
 Eine Software-Migration wird notwendig, wenn:
