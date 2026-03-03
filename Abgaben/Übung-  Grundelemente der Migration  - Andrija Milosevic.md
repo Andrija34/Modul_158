@@ -1,4 +1,4 @@
-# Übung Pfade – Lösung
+# Übung Pfade 
 
 ---
 
