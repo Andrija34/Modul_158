@@ -1,5 +1,4 @@
 # Übung Pfade 
-
 ---
 
 ## 📁 Lokal (Windows-Dateisystem)
