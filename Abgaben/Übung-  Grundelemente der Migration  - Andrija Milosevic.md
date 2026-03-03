@@ -76,13 +76,13 @@ Blume.jpg
 
 ### 8) URL von `Dokument.pdf`
 
-https://ihreadresse.ch/wp-content/uploads/2022/5/Dokument.pdf
+https://irgendetwas/wp-content/uploads/2022/5/Dokument.pdf
 
 ---
 
 ### 9) URL von `download.php`
 
-https://ihreadresse.ch/wp-content/plugins/neon/files/download.php
+https://irgendetwas/wp-content/plugins/neon/files/download.php
 
 ---
 
