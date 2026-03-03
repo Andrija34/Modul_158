@@ -1,6 +1,4 @@
 # Übung – Grundelemente der Migration  
-**Vorname Nachname:** Andrija Milosevic
-**Modul:** M158  
 
 ---
 
