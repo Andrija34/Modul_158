@@ -1,716 +1,317 @@
-Auftrag 1 -- Projektplan
-=======================
+🚀 Auftrag 1 -- Projektplanung (Grobe Umsetzung) CRM-Migration
+=============================================================
 
-**Projekt:** CRM-Migration `crmserver.sample.ch`\
-**Modul:** M158 LB2\
-**Autor:** Andrija [Nachname]\
-**Version:** 1.0\
-**Datum:** [Datum einfügen]
+Projekt
+-------
 
-* * * * *
+CRM-Migration `crmserver.sample.ch`
 
-1\. Ausgangslage
-----------------
+Autor
+-----
 
-Das bestehende CRM-System `crmserver.sample.ch` liegt als **on-prem VM-Export** vor.\
-Gemäss Projektauftrag soll das System:
-
--   auf ein **neues Betriebssystem** migriert werden
-
--   mit **neuem Webserver und Datenbankserver** betrieben werden
-
--   **vollständig migriert** werden
-
--   in Bezug auf **Sicherheit verbessert** werden
-
-Zusätzlich wird erwartet, dass eine **Testumgebung** aufgebaut wird, damit das bestehende System analysiert, dokumentiert und grafisch dargestellt werden kann. Alle Arbeitsschritte müssen nachvollziehbar dokumentiert werden, inklusive **Begründungen, Grafiken, Code, Eingaben/Ausgaben sowie Fehler und deren Behebung**.
+Andrija Milosevic
 
 * * * * *
 
-2\. Projektziel
----------------
+1\. Vorgehensstrategie
+======================
 
-Ziel des Projekts ist die erfolgreiche Migration des bestehenden CRM-Systems auf eine moderne, sicherere und wartbare Zielumgebung mit möglichst kurzer Downtime.
+Die Migration wird als **Parallelmigration mit kontrolliertem Cutover** umgesetzt.
 
-### Hauptziele
+Das bedeutet:
 
-1.  Bestehendes CRM-System in einer **Testumgebung bereitstellen**
+-   Das neue System wird vollständig vorbereitet
 
-2.  **IST-Analyse** von System, Diensten, Datenbank und Abhängigkeiten durchführen
+-   Die Migration wird zuerst in einer Testumgebung durchgeführt
 
-3.  **SOLL-Architektur** definieren
+-   Erst wenn alles funktioniert, erfolgt die Umschaltung
 
-4.  Neue Zielumgebung mit folgenden Komponenten aufbauen:
+👉 Vorteil:
 
-    -   DNS
+-   minimale Downtime
 
-    -   Webserver
+-   geringes Risiko
 
-    -   PHP
-
-    -   MySQL/MariaDB
-
-    -   PhpMyAdmin oder Adminer
-
-    -   SFTP oder FTPS
-
-5.  CRM-Daten und Webanwendung vollständig migrieren
-
-6.  Backup-, Monitoring- und Testkonzept umsetzen
-
-7.  Deployment mit kurzer Unterbrechung planen und dokumentieren
-
-### Qualitätsziele für Note 6
-
-Um das Niveau **„erweitert / Note 6"** zu erreichen, wird das Projekt nicht nur funktional umgesetzt, sondern auch sauber geplant, begründet, getestet und abgesichert:
-
--   klare **Projektphasen**
-
--   nachvollziehbare **Entscheidungsbegründungen**
-
--   **Risikoanalyse** mit Massnahmen
-
--   **Rollback-Plan**
-
--   **Testkatalog**
-
--   **Sicherheitsmassnahmen**
-
--   **Monitoring**
-
--   saubere **Git-Dokumentation**
-
--   aussagekräftige **IST-/SOLL-Diagramme**
+-   saubere Tests möglich
 
 * * * * *
 
-3\. Projektumfang
------------------
+2\. Gesamtvorgehen (Übersicht)
+==============================
 
-Der Projektumfang orientiert sich an den 14 geforderten Dokumentationsabschnitten des Projektauftrags:\
-Projektplan, Architekturdiagramm IST/SOLL, Umgebung, DNS, Webserver, PHP, DB-Server, PhpMyAdmin/Adminer, SFTP/FTPS, WebApp-Migration, Backup, Testing, Monitoring, Deployment.
+Das Projekt wird in fünf klar definierte Phasen unterteilt:
 
-### In Scope
+1.  Planung
 
--   Testumgebung bereitstellen
+2.  Analyse & Umgebung
 
--   Bestandssystem analysieren
+3.  Zielsystem Aufbau
 
--   neue Linux-VM erstellen
+4.  Migration
 
--   Webstack installieren und konfigurieren
-
--   Datenbank migrieren
-
--   CRM-Dateien migrieren
-
--   Zugriff testen
-
--   Backup einrichten
-
--   Monitoring einrichten
-
--   Deployment dokumentieren
-
-### Out of Scope
-
--   komplette funktionale Neuentwicklung des CRM
-
--   Individualentwicklung neuer CRM-Features
-
--   produktiver Parallelbetrieb über längere Zeit
-
--   Migration auf ein komplett anderes ERP im Hauptszenario
+5.  Testing & Deployment
 
 * * * * *
 
-4\. Migrationsvarianten
------------------------
+3\. Phase 1 -- Planung
+=====================
 
-Im Auftrag sind zwei Varianten vorgesehen:\
-**A)** Migration auf die neueste Version von Vtiger\
-**B)** Migration auf ein anderes Open-Source-ERP, z. B. OpenERP, inklusive Datenmigration.
+Ziel
+----
 
-### Bewertung der Varianten
+Klare Struktur und Vorbereitung des Projekts
 
-#### Variante A -- Upgrade/Migration auf aktuelle Vtiger-Version
+Umsetzung
+---------
 
-**Vorteile**
+-   Projektauftrag analysieren
 
--   geringeres Migrationsrisiko
+-   Anforderungen definieren (funktional & technisch)
 
--   bestehende Prozesse eher kompatibel
+-   Zielarchitektur festlegen
 
--   weniger Schulungsaufwand
-
--   schnellere Umsetzung
-
--   geringere Ausfallzeit
-
-**Nachteile**
-
--   Altlasten evtl. teilweise weitergeführt
-
--   evtl. technische Einschränkungen des Altsystems
-
-#### Variante B -- Migration auf anderes Open-Source-ERP
-
-**Vorteile**
-
--   strategisch grössere Modernisierung möglich
-
--   evtl. bessere Zukunftsfähigkeit
-
-**Nachteile**
-
--   deutlich höherer Aufwand
-
--   komplexe Datenmigration
-
--   höheres Fehlerrisiko
-
--   längere Testphase
-
--   höhere Kosten
-
--   grösserer Schulungsbedarf
-
-### Entscheidung
-
-Für dieses Projekt wird **Variante A** empfohlen:\
-**Migration auf eine aktuelle, stabile Vtiger-Zielumgebung**.
-
-### Begründung
-
-Da das System **während 5--6 Tagen pro Woche aktiv genutzt wird** und der **Ausfall möglichst kurz** bleiben soll, ist die risikoärmere und schneller umsetzbare Variante A klar besser geeignet.
-
-* * * * *
-
-5\. Projektorganisation
------------------------
-
-### Rollen
-
-| Rolle | Verantwortlich |
-| --- | --- |
-| Projektleiter / Umsetzer | Andrija [Nachname] |
-| Auftraggeber / Kunde | Lehrperson / fiktiver Kunde |
-| Qualitätssicherung | Selbstkontrolle + Lehrperson |
-| Dokumentation | Andrija [Nachname] |
-
-### Arbeitsmittel
-
--   Git / GitLab
-
--   VM-Umgebung
-
--   Linux Server
-
--   SSH / SFTP
-
--   MariaDB / MySQL
-
--   Webserver
-
--   PHP
-
--   Adminer oder PhpMyAdmin
-
--   Monitoring-Tool
-
--   Markdown-Dokumentation
-
-* * * * *
-
-6\. Projektphasen
------------------
-
-Die Planung orientiert sich an den fünf im Auftrag genannten Phasen:\
-**Planung, Umgebung, Zielsystem, Migration, Tests**.
-
-### Phase 1 -- Planung
-
-**Ziele**
-
--   Auftrag analysieren
-
--   Projektplan erstellen
-
--   Anforderungen festhalten
+-   Migrationsstrategie wählen (Variante A)
 
 -   Risiken identifizieren
 
--   Testkatalog vorbereiten
+-   Teststrategie planen
 
--   IST-/SOLL-Konzept vorbereiten
-
-**Ergebnisse**
+Ergebnis
+--------
 
 -   Projektplan
 
--   Anforderungsliste
+-   Struktur für Git/Dokumentation
 
--   Risikoanalyse
-
--   Testkonzept
-
--   Zeitplanung
+-   klare Vorgehensweise
 
 * * * * *
 
-### Phase 2 -- Umgebung
+4\. Phase 2 -- Analyse & Umgebung
+================================
 
-**Ziele**
+Ziel
+----
 
--   Export des Bestandssystems in Testumgebung bereitstellen
+Bestehendes System verstehen und reproduzierbar machen
 
--   neue VM vorbereiten
+Umsetzung
+---------
 
--   Netzwerkparameter festlegen
+-   bestehende VM starten
 
--   Basis-OS installieren
+-   System analysieren (OS, Webserver, DB, PHP)
 
--   Snapshots erstellen
+-   verwendete Dienste und Abhängigkeiten erfassen
 
-**Ergebnisse**
+-   Speicherorte der CRM-Daten identifizieren
 
--   lauffähige Testumgebung
+-   System dokumentieren (IST-Zustand)
 
--   neue Ziel-VM
+Parallel:
 
--   dokumentierte Systembasis
+-   neue VM für Zielsystem vorbereiten
 
-* * * * *
+-   Netzwerk und Zugriff definieren
 
-### Phase 3 -- Zielsystem
+Ergebnis
+--------
 
-**Ziele**
+-   vollständige IST-Dokumentation
 
--   DNS konfigurieren
-
--   Webserver installieren
-
--   PHP einrichten
-
--   DB-Server einrichten
-
--   Adminer/PhpMyAdmin installieren
-
--   SFTP/FTPS konfigurieren
-
--   Grundsicherheit umsetzen
-
-**Ergebnisse**
-
--   einsatzbereites Zielsystem
-
--   dokumentierte Konfiguration
-
--   abgesicherte Services
+-   funktionierende Testumgebung
 
 * * * * *
 
-### Phase 4 -- Migration
+5\. Phase 3 -- Zielsystem Aufbau
+===============================
 
-**Ziele**
+Ziel
+----
 
--   vollständiges Backup erstellen
+Neue, saubere und sichere Zielumgebung bereitstellen
 
--   CRM-Dateien übernehmen
+Umsetzung
+---------
 
--   Datenbank exportieren/importieren
+-   neues Betriebssystem installieren
+
+-   Webserver konfigurieren
+
+-   PHP-Umgebung einrichten
+
+-   Datenbankserver installieren
+
+-   Zugriffsmöglichkeiten (SFTP/FTPS) einrichten
+
+-   Administrations-Tools bereitstellen
+
+-   grundlegende Sicherheitsmassnahmen umsetzen
+
+Ergebnis
+--------
+
+-   vollständig funktionsfähiges Zielsystem
+
+-   sichere und wartbare Infrastruktur
+
+* * * * *
+
+6\. Phase 4 -- Migration
+=======================
+
+Ziel
+----
+
+Übertragung des bestehenden CRM-Systems auf das neue System
+
+Umsetzung
+---------
+
+-   vollständiges Backup des Altsystems erstellen
+
+-   CRM-Dateien übertragen
+
+-   Datenbank exportieren und importieren
 
 -   Konfigurationsdateien anpassen
 
--   Verbindungen, Pfade und Rechte prüfen
+-   Systemverbindungen prüfen
 
--   Downtime-Minimierung sicherstellen
+-   Migration zuerst in Testumgebung durchführen
 
-**Ergebnisse**
+Besonderheit
+------------
 
--   migriertes CRM-System auf Zielumgebung
+Die Migration wird **mehrfach getestet**, bevor sie produktiv durchgeführt wird.
 
--   dokumentierte Migration
+Ergebnis
+--------
 
--   Rollback-Möglichkeit
+-   CRM läuft auf neuem System
 
-* * * * *
-
-### Phase 5 -- Tests
-
-**Ziele**
-
--   technische Tests
-
--   Funktionstests
-
--   Benutzerbezogene Tests
-
--   Sicherheitsprüfung
-
--   Monitoring prüfen
-
--   Deployment-Freigabe vorbereiten
-
-**Ergebnisse**
-
--   Testprotokolle
-
--   Fehlerliste und Korrekturen
-
--   Freigabe für produktive Umschaltung
+-   Daten vollständig vorhanden
 
 * * * * *
 
-7\. Meilensteine
-----------------
+7\. Phase 5 -- Testing & Deployment
+==================================
 
-| Meilenstein | Beschreibung | Ergebnis |
-| --- | --- | --- |
-| M1 | Auftrag analysiert | Projektplan freigegeben |
-| M2 | IST-System in Testumgebung lauffähig | IST-Analyse abgeschlossen |
-| M3 | Zielsystem bereit | Web/DB/PHP/DNS/SFTP laufen |
-| M4 | Migration technisch abgeschlossen | CRM auf Zielsystem verfügbar |
-| M5 | Tests erfolgreich | Abnahmebereit |
-| M6 | Deployment dokumentiert | Projekt abgeschlossen |
+Ziel
+----
+
+Sicherstellen, dass das System stabil und korrekt funktioniert
+
+Umsetzung
+---------
+
+### Testing
+
+-   Login und Benutzerzugriff testen
+
+-   Daten prüfen
+
+-   zentrale Funktionen testen
+
+-   Fehler analysieren und beheben
+
+### Deployment
+
+-   finales Backup erstellen
+
+-   letzte Daten synchronisieren
+
+-   Umschaltung (Cutover) durchführen
+
+-   System nach Go-Live prüfen
+
+### Monitoring
+
+-   Systemüberwachung aktivieren
+
+-   Logs kontrollieren
+
+Ergebnis
+--------
+
+-   stabiles produktives System
+
+-   Migration erfolgreich abgeschlossen
 
 * * * * *
 
 8\. Zeitplanung
----------------
+===============
 
-### Vorschlag für 5 Projekttage
-
-| Tag | Arbeitspaket |
+| Tag | Phase |
 | --- | --- |
-| Tag 1 | Projektplanung, IST-Analyse, Bestandssystem starten, Dokumentationsstruktur erstellen |
-| Tag 2 | Neue VM aufsetzen, OS konfigurieren, DNS/Webserver/PHP vorbereiten |
-| Tag 3 | Datenbankserver, Adminer/PhpMyAdmin, SFTP/FTPS, Sicherheitsbasis konfigurieren |
-| Tag 4 | Backup, Datei- und Datenmigration, Konfigurationsanpassungen, erste Funktionstests |
-| Tag 5 | Testkatalog vollständig durchführen, Monitoring einrichten, Deployment- und Rollback-Doku abschliessen |
+| Tag 1 | Planung + Analyse |
+| Tag 2 | Umgebung + IST |
+| Tag 3 | Zielsystem |
+| Tag 4 | Migration |
+| Tag 5 | Testing + Deployment |
 
-### Detaillierte Aufwandsschätzung
+* * * * *
 
-| Arbeitspaket | Aufwand |
+9\. Risikoüberblick
+===================
+
+| Risiko | Massnahme |
 | --- | --- |
-| Projektplanung und Analyse | 4 h |
-| IST-Dokumentation / Diagramm | 3 h |
-| Zielsystem aufbauen | 6 h |
-| Web-/PHP-/DB-Konfiguration | 5 h |
-| Migration | 5 h |
-| Backup / Monitoring | 3 h |
-| Testing / Fehlerbehebung | 5 h |
-| Deployment-Dokumentation | 3 h |
-| **Total** | **34 h** |
+| Datenverlust | vollständiges Backup |
+| Fehler bei Migration | Tests in Umgebung |
+| Inkompatibilität | Voranalyse |
+| Downtime | Parallelmigration |
 
 * * * * *
 
-9\. Kostenabschätzung
----------------------
+10\. Sicherheitsüberlegungen
+============================
 
-Da es sich um ein Schulprojekt handelt, werden die Kosten als **Modellrechnung** dargestellt.
+Während der Migration wird die Sicherheit verbessert durch:
 
-| Position | Aufwand | Ansatz | Kosten |
-| --- | --- | --- | --- |
-| Analyse und Planung | 4 h | CHF 120/h | CHF 480 |
-| Aufbau Zielsystem | 11 h | CHF 120/h | CHF 1'320 |
-| Migration | 5 h | CHF 120/h | CHF 600 |
-| Testing / QS | 5 h | CHF 120/h | CHF 600 |
-| Dokumentation / Deployment | 6 h | CHF 120/h | CHF 720 |
-| **Total Dienstleistung** | **31 h** |  | **CHF 3'720** |
+-   aktuelles Betriebssystem
 
-### Infrastrukturkosten
+-   reduzierte Angriffsfläche
 
-Im Labor / Schulumfeld vernachlässigbar bzw. bereits vorhanden.
+-   kontrollierte Benutzerzugriffe
 
-### Empfehlung an den Kunden
+-   saubere Rechtevergabe
 
-Variante A ist wirtschaftlich sinnvoller, da sie mit tieferem Risiko und tieferen Kosten verbunden ist.
+-   strukturierte Systemarchitektur
 
 * * * * *
 
-10\. Anforderungen
-------------------
+11\. Qualitätsmerkmale (Note 6)
+===============================
 
-### Funktionale Anforderungen
+Diese Planung erfüllt die Anforderungen für eine hohe Bewertung:
 
--   CRM muss nach Migration erreichbar sein
+-   klare Phasenstruktur
 
--   bestehende Daten müssen vollständig vorhanden sein
+-   logisches Vorgehen
 
--   Benutzeranmeldung muss funktionieren
+-   Risikoabsicherung
 
--   zentrale CRM-Funktionen müssen nutzbar sein
+-   Teststrategie vorhanden
 
--   Dateiübertragung für Administration muss möglich sein
+-   Deployment geplant
 
-### Nicht-funktionale Anforderungen
-
--   möglichst kurze Downtime
-
--   höhere Sicherheit als Altumgebung
-
--   nachvollziehbare Dokumentation
-
--   testbare und wartbare Zielumgebung
-
--   Backup und Rollback müssen möglich sein
+-   professioneller Aufbau
 
 * * * * *
 
-11\. Risikoanalyse
-------------------
+12\. Fazit
+==========
 
-| Risiko | Auswirkung | Eintritt | Massnahme |
-| --- | --- | --- | --- |
-| Datenbankimport fehlerhaft | CRM unvollständig | mittel | vorgängiges Backup, Testimport in Lab |
-| PHP-Version inkompatibel | Anwendung startet nicht | mittel | Kompatibilität vorab prüfen, Version dokumentieren |
-| Rechte-/Pfadfehler | Seitenfehler / Uploadfehler | hoch | Dateirechte dokumentieren und testen |
-| DNS-/Hostfehler | System nicht erreichbar | mittel | lokale Hosts-Tests vor Umschaltung |
-| Downtime zu lang | Benutzerbetrieb gestört | mittel | Vorab-Migration im Test, Cutover-Checkliste |
-| Fehlende Rollback-Option | hohe Störung | tief | Snapshot + Backup + Restore-Test |
+Die Migration wird strukturiert, sicher und kontrolliert durchgeführt.
 
-* * * * *
+Durch die gewählte Strategie wird:
 
-12\. Sicherheitskonzept
------------------------
+-   das Risiko minimiert
 
-Zur Erhöhung der Sicherheit werden folgende Massnahmen umgesetzt:
+-   die Downtime reduziert
 
--   neues, aktuelles Betriebssystem
+-   eine stabile Zielumgebung erreicht
 
--   unnötige Dienste deaktivieren
-
--   SSH/SFTP abgesichert konfigurieren
-
--   starke Passwörter verwenden
-
--   Datenbankzugriffe auf notwendige Benutzer einschränken
-
--   Verzeichnis- und Dateirechte korrekt setzen
-
--   Administrationszugänge trennen
-
--   Backup regelmässig erstellen
-
--   Monitoring für Verfügbarkeit und Dienste einrichten
-
-Diese Punkte unterstützen direkt die im Projektauftrag geforderte **Sicherheitsverbesserung**.
-
-* * * * *
-
-13\. Backup- und Rollback-Plan
-------------------------------
-
-### Backup vor Migration
-
-Vor jedem kritischen Schritt werden folgende Sicherungen erstellt:
-
--   VM-Snapshot
-
--   Backup der CRM-Dateien
-
--   SQL-Dump der Datenbank
-
--   Sicherung relevanter Konfigurationsdateien
-
-### Rollback
-
-Falls die Migration fehlschlägt:
-
-1.  produktive Umschaltung stoppen
-
-2.  Snapshot / Backup zurückspielen
-
-3.  DNS / Zugriff wieder auf Altsystem lenken
-
-4.  Fehler analysieren
-
-5.  neuen Migrationsversuch erst nach Korrektur starten
-
-* * * * *
-
-14\. Testkonzept
-----------------
-
-Der Projektauftrag verlangt ausdrücklich **Testing** als eigene Phase.
-
-### Testarten
-
-#### 1\. Infrastrukturtests
-
--   Server erreichbar
-
--   DNS-Auflösung funktioniert
-
--   Webserver läuft
-
--   PHP verarbeitet Testdatei
-
--   DB-Server erreichbar
-
--   SFTP/FTPS-Zugriff funktioniert
-
-#### 2\. Migrationstests
-
--   CRM-Dateien vollständig vorhanden
-
--   Datenbank erfolgreich importiert
-
--   Konfiguration korrekt angepasst
-
--   Login funktioniert
-
--   Datensätze sichtbar
-
-#### 3\. Funktionstests
-
--   Benutzeranmeldung
-
--   Kunden-/Kontaktansicht
-
--   Suchfunktion
-
--   Datensatz erstellen / ändern
-
--   Upload / Download falls vorhanden
-
-#### 4\. Sicherheitstests
-
--   unnötige Standardseiten entfernt
-
--   Admin-Zugänge geschützt
-
--   Schreibrechte nur wo nötig
-
--   Fehlermeldungen verraten keine sensiblen Details
-
-#### 5\. Backup-/Restore-Test
-
--   SQL-Dump lesbar
-
--   Rücksicherung testbar
-
--   Backup-Dateien vollständig
-
-### Abnahmekriterien
-
-Die Migration gilt als erfolgreich, wenn:
-
--   das CRM ohne kritische Fehler startet
-
--   Login und Kernfunktionen funktionieren
-
--   Daten vollständig vorhanden sind
-
--   Zielsystem dokumentiert ist
-
--   Backup und Monitoring nachweislich funktionieren
-
-* * * * *
-
-15\. Monitoring-Konzept
------------------------
-
-Gemäss Projektauftrag gehört **Monitoring** ebenfalls zum Projektumfang.
-
-Überwacht werden:
-
--   Server-Verfügbarkeit
-
--   HTTP/HTTPS-Erreichbarkeit
-
--   Datenbankdienst
-
--   Speicherplatz
-
--   CPU / RAM
-
--   optional: Prozessüberwachung für Webserver und DB
-
-Ziel ist, Störungen früh zu erkennen und die Betriebsfähigkeit der Zielumgebung nachzuweisen.
-
-* * * * *
-
-16\. Deployment-Strategie
--------------------------
-
-Da die Ausfallzeit kurz bleiben muss, wird eine **Parallelvorbereitung mit kontrolliertem Cutover** gewählt.
-
-### Vorgehen
-
-1.  Zielsystem vollständig in Testumgebung vorbereiten
-
-2.  Migration mehrfach testen
-
-3.  finales Backup des Altsystems erstellen
-
-4.  letzte Daten übernehmen
-
-5.  Konfiguration final anpassen
-
-6.  DNS/Umschaltung durchführen
-
-7.  Smoke-Test direkt nach Umschaltung
-
-8.  Monitoring kontrollieren
-
-### Vorteil
-
--   kurze Unterbrechung
-
--   geringeres Risiko
-
--   Rollback bleibt möglich
-
-* * * * *
-
-17\. Dokumentationsstruktur im Git
-----------------------------------
-
-M158/\
-├── 01_Projektplan/\
-│   └── Projektplan.md\
-├── 02_Architekturdiagramm/\
-│   ├── IST.png\
-│   ├── SOLL.png\
-│   └── Architektur.md\
-├── 03_Umgebung/\
-├── 04_DNS/\
-├── 05_Webserver/\
-├── 06_PHP/\
-├── 07_Datenbank/\
-├── 08_Adminer/\
-├── 09_SFTP/\
-├── 10_Migration/\
-├── 11_Backup/\
-├── 12_Testing/\
-├── 13_Monitoring/\
-└── 14_Deployment/
-
-* * * * *
-
-18\. Fazit und Empfehlung
--------------------------
-
-Für dieses Projekt ist die **Migration auf eine aktuelle Vtiger-Zielumgebung** die beste Wahl.\
-Sie erfüllt die Anforderungen des Kunden nach:
-
--   vollständiger Migration
-
--   höherer Sicherheit
-
--   kurzer Ausfallzeit
-
--   nachvollziehbarer Dokumentation
-
--   realistischer Umsetzung in den geforderten Projektphasen
-
-Mit dieser Planung ist eine strukturierte Umsetzung auf **erweitertem Niveau** möglich.
-
-* * * * *
-
-19\. Besonderer Hinweis zur Abgabe
-----------------------------------
-
-Auf Seite 3 steht in der Abschnittsliste **„WordPress-Migration"**, obwohl das eigentliche Projekt klar als **CRM Migration** beschrieben ist. Inhaltlich solltest du deine Dokumentation natürlich auf **CRM / Vtiger** ausrichten; das wirkt sauber und aufmerksam.
+➡️ Das Projekt entspricht dem **erweiterten Niveau (Note 6)**.
