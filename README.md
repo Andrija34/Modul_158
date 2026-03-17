@@ -450,4 +450,4 @@ Die gewählte Lösung erfüllt alle Anforderungen:
 
 ➡️ Damit wird das Projekt auf **erweitertem Niveau (Note 6)** umgesetzt.
 
-dieses ReadME wurde mit hilfe von ChatGPT erstellt
+*dieses ReadME wurde mit hilfe von ChatGPT erstellt*
